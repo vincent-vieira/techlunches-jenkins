@@ -11,7 +11,7 @@ import org.junit.Test;
 public class NotPassingUnitTest {
 
     @Test
-    public void passingTest() throws Exception {
+    public void notPassingTest() throws Exception {
         Assert.assertEquals("That was at this moment Jackson knew... He fucked up.", 0, 1);
     }
 }
