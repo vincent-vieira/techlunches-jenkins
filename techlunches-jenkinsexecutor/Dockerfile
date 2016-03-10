@@ -6,11 +6,8 @@ MAINTAINER Vincent Vieira <vincent.vieira@supinfo.com>
 RUN apt-get update && apt-get install -y openssh-server
 RUN mkdir -p /var/run/sshd
 
-# Install JDK 7 (latest edition)
-RUN apt-get install -y --no-install-recommends openjdk-7-jdk
-
 # Install packages needed for the build
-RUN apt-get install -y --no-install-recommends git maven
+RUN apt-get install -y --no-install-recommends git
 
 # Add user jenkins to the image
 RUN adduser --quiet jenkins
