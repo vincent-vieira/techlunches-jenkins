@@ -7,9 +7,10 @@ The whole infrastructure is heavily Dockerized, so make sure to have [Docker](ht
 
 ## Project structure
 This project is composed of 2 custom Docker images, and 1 stock image. 
-The first one (**techlunches-customjenkins-docker**) is bootstrapping a custom Jenkins instance with default plugins installed and host Docker communication basis in order to be able to spawn executors on the Docker host.
-The second one (**techlunches-jenkinsexecutor**) is a slave image used to build Maven-based projects. Its use is configured into Jenkins settings and all containers deployed from this image are automatically managed by Jenkins.
-The third image, the stock one, is containing [Sonatype](http://www.sonatype.com/) in order to test the Java artifact deployment workflow from end-to-end.
+
+- The first one (**techlunches-customjenkins-docker**) is bootstrapping a custom Jenkins instance with default plugins installed and host Docker communication basis in order to be able to spawn executors on the Docker host.
+- The second one (**techlunches-jenkinsexecutor**) is a slave image used to build Maven-based projects. Its use is configured into Jenkins settings and all containers deployed from this image are automatically managed by Jenkins.
+- The third image, the stock one, is containing [Sonatype](http://www.sonatype.com/) in order to test the Java artifact deployment workflow from end-to-end.
 
 ## Well, ok. But how does this work ?
 - Both Java projects **technlunches-validjavaproject** and **technlunches-invalidjavaproject** are pushed to GitHub.
