@@ -14,7 +14,7 @@ The second one (**techlunches-jenkinsexecutor**) is a slave image used to build 
 
 ## Well, ok. But how does this work ?
 - Both Java projects **technlunches-validjavaproject** and **technlunches-invalidjavaproject** are pushed to GitHub.
-- The local Jenkins instance is configured to periodically poll changes on their repositories (**note that as the infrastructure is behind a NAT and not on the Internet, we can't use [Webhooks](https://developer.github.com/webhooks/Github) in order to trigger builds every time a change is pushed.**)
+- The local Jenkins instance is configured to periodically poll changes on their repositories (**note that as the infrastructure is behind a NAT and not on the Internet, we can't use [Webhooks](https://developer.github.com/webhooks) in order to trigger builds every time a change is pushed.**)
 - Even if a change is not made (for the sake of the demo), we trigger a build in order to test both build workflows :
     - The workflow associated to the **technlunches-validjavaproject** must build a Java artifact, pass tests, send a mail and push the artifact to Sonatype.
     - The workflow associated to the **technlunches-invalidjavaproject** must not pass tests, fail, and that's all.
