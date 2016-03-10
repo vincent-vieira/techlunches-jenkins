@@ -32,10 +32,17 @@ docker build -t techlunches-jenkinsexecutor ./techlunches-jenkinsexecutor/
 #### Command line
 
 ```bash
-docker run -d -p 8081:8081 --name nexus sonatype/nexus:oss
+docker run -d -p 8081:8081 --name nexus -v ~/nexus-data:/sonatype-work sonatype/nexus:oss
 docker run -d -p 8080:8080 -p 50000:50000 --link nexus:nexus --name jenkins -v ~/jenkins-config:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock techlunches-customjenkins
 ```
 
 #### Recommandations
-Make sure the **jenkins-config** directory located inside `~` (aka your Unix current user's home) is writable per userid 1000 (as said in [the official Jenkins Docker image documentation](https://hub.docker.com/_/jenkins/)).
-**And note that the host's Docker Unix socket is bound to the Docker client used with Jenkins. This a major security issue and must be only used while creating PoCs and testing things !**
+ - Make sure the **jenkins-config** directory located inside `~` (aka your Unix current user's home) is writable per userid 1000 (as said in [the official Jenkins Docker image documentation](https://hub.docker.com/_/jenkins/)).
+ - In the same way, make sure the **nexus-data** directory located inside `~` is writable per userid 200 (as said in [the official Jenkins Docker image documentation](https://hub.docker.com/r/sonatype/nexus/)).
+ - **Finally, note that the host's Docker Unix socket is bound to the Docker client socket used within the Jenkins container. This a major security issue and must be only used while creating PoCs and testing things !**
+
+### I'm lazy, can something bootstrap the whole thing up ?
+Yep. A bootstrap script managing everything is present in the root of this project, `dockerLaunch.sh`. Just `chmod +x` it, launch it and you're set !
+
+## But wait, my Jenkins/Sonatype has no preset configuration ?
+Nope. These configs are only known by me, I'm not gonna give you my credentials/other sensible things. Furthermore, Jenkins is a tool to experiment with, so better start from scratch :smirk:
