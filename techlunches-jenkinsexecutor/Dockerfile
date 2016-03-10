@@ -2,6 +2,9 @@
 FROM maven:3.3.3
 MAINTAINER Vincent Vieira <vincent.vieira@supinfo.com>
 
+#Copying our settings.xml file...
+ADD settings.xml /usr/share/maven/conf/settings.xml
+
 #SSH server
 RUN apt-get update && apt-get install -y openssh-server
 RUN mkdir -p /var/run/sshd

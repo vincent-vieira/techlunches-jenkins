@@ -40,9 +40,11 @@ docker run -d -p 8080:8080 -p 50000:50000 --link nexus:nexus --name jenkins -v ~
  - Make sure the **jenkins-config** directory located inside `~` (aka your Unix current user's home) is writable per userid 1000 (as said in [the official Jenkins Docker image documentation](https://hub.docker.com/_/jenkins/)).
  - In the same way, make sure the **nexus-data** directory located inside `~` is writable per userid 200 (as said in [the official Jenkins Docker image documentation](https://hub.docker.com/r/sonatype/nexus/)).
  - **Finally, note that the host's Docker Unix socket is bound to the Docker client socket used within the Jenkins container. This a major security issue and must be only used while creating PoCs and testing things !**
-
+ - You can customize [the Maven Settings](https://maven.apache.org/settings.html) before building the **techlunches-jenkinsexecutor** image, in order to customize the deployment credentials for the Nexus container, for instance. Just edit the `settings.xml` file inside the **techlunches-jenkinsexecutor** image folder. 
+ 
 ### I'm lazy, can something bootstrap the whole thing up ?
 Yep. A bootstrap script managing everything is present in the root of this project, `dockerLaunch.sh`. Just `chmod +x` it, launch it and you're set !
+You can pass the `--watch` option to the script to begin watching [the Docker process list](https://docs.docker.com/engine/reference/commandline/ps/) right after deploying the whole load of containers.
 
 ## But wait, my Jenkins/Sonatype has no preset configuration ?
 Nope. These configs are only known by me, I'm not gonna give you my credentials/other sensible things. Furthermore, Jenkins is a tool to experiment with, so better start from scratch :smirk:

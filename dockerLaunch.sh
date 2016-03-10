@@ -29,3 +29,7 @@ docker build -t techlunches-jenkinsexecutor ./techlunches-jenkinsexecutor/
 
 docker run -d -p 8081:8081 --name nexus -v ~/nexus-data:/sonatype-work sonatype/nexus:oss
 docker run -d -p 8080:8080 -p 50000:50000 --link nexus:nexus --name jenkins -v ~/jenkins-config:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock techlunches-customjenkins
+
+if [ "$1" = "--watch" ]; then
+    watch -n1 docker ps
+fi
