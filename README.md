@@ -4,6 +4,7 @@ This project is the project used as a demo on the Jenkins discovery talk made on
 
 ## Prerequisites
 The whole infrastructure is heavily Dockerized, so make sure to have [Docker](https://www.docker.com/) installed on your host.
+**This PoC has been tested using Docker version 1.6.2, with client API level 1.18. It is known not to run properly on Docker 1.10, because the Jenkins Docker Executor plugin doesn't work.**
 
 ## Project structure
 This project is composed of 2 custom Docker images, and 1 stock image. 
