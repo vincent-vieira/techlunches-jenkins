@@ -1,4 +1,4 @@
-#Bootstrappping a slave executor using Java 8 and Maven
+#Bootstrapping a slave executor using Java 8 and Maven
 FROM maven:3.3.3
 MAINTAINER Vincent Vieira <vincent.vieira@supinfo.com>
 
