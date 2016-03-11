@@ -12,6 +12,12 @@ chown -R 1000 ~/jenkins-config
 chown -R 200 ~/nexus-data
 
 #Configuring Docker
+echo "Deleting all ghost executors..."
+docker ps -aq -f "image=techlunches-jenkinsexecutor" | tail -n +2 | while read GHOST_CONTAINER
+do
+    docker rm -f "$GHOST_CONTAINER" > /dev/null
+done
+
 NEXUS_CONTAINER=$(docker ps -aq -f "name=nexus")
 [ ! -z "$NEXUS_CONTAINER" ] && echo "Nexus container already exists, deleting it..." && docker rm -f "$NEXUS_CONTAINER" > /dev/null
 
@@ -24,11 +30,12 @@ HAS_JENKINS_IMAGE=$(docker images | grep techlunches-customjenkins)
 HAS_JENKINS_EXECUTOR_IMAGE=$(docker images | grep techlunches-jenkinsexecutor)
 [ ! -z "$HAS_JENKINS_EXECUTOR_IMAGE" ] && docker rmi techlunches-jenkinsexecutor > /dev/null
 
-docker build -t techlunches-customjenkins ./techlunches-customjenkins-docker/
-docker build -t techlunches-jenkinsexecutor ./techlunches-jenkinsexecutor/
+docker build -t techlunches-customjenkins --no-cache ./techlunches-customjenkins-docker/
+docker build -t techlunches-jenkinsexecutor --no-cache ./techlunches-jenkinsexecutor/
 
 docker run -d -p 8081:8081 --name nexus -v ~/nexus-data:/sonatype-work sonatype/nexus:oss
-docker run -d -p 8080:8080 -p 50000:50000 --link nexus:nexus --name jenkins -v ~/jenkins-config:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock techlunches-customjenkins
+docker run -d -p 8080:8080 -p 50000:50000 --link nexus:nexus --name jenkins -v ~/jenkins-config:/var/jenkins_home \
+-v /var/run/docker.sock:/var/run/docker.sock -e JAVA_OPTS="-Djava.util.logging.config.file=/usr/local/jenkins/log.properties" techlunches-customjenkins
 
 if [ "$1" = "--watch" ]; then
     watch -n1 docker ps

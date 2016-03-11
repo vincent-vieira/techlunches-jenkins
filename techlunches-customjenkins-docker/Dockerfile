@@ -1,6 +1,9 @@
 FROM bdruemen/jenkins-uid-from-volume
 MAINTAINER Vincent Vieira <vincent.vieira@supinfo.com>
 
+#Changing Jenkins logging mode
+ADD log.properties /usr/local/jenkins/log.properties
+
 #Installing plugins through descriptor file
 COPY plugins.txt /usr/share/jenkins/plugins.txt
 RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
