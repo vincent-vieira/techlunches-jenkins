@@ -13,7 +13,7 @@ RUN mkdir -p /var/run/sshd
 RUN apt-get install -y --no-install-recommends git
 
 # Add user jenkins to the image
-RUN adduser --quiet jenkins
+RUN useradd -m -s /bin/bash -m jenkins
 RUN echo "jenkins:jenkins" | chpasswd
 
 EXPOSE 22
